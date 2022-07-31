@@ -24,6 +24,7 @@ FARO (Document Sensitivity Detector)
     * [Install Git-LFS](#install-git-lfs)
     * [FARO detection additional arguments](#faro-detection-additional-arguments)
     * [Known issues](#knownissues)
+* [ELG Inegration](#integration-with-elg)    
 * [Contributors](#contributors)
 
 
@@ -436,6 +437,38 @@ A `models` folder will be created with all the models inside.
 * The full functionality only works with Spanish documents although it is easily expandable with new languages (especially if they are supported with SpaCy, the NLP tool used to process the sentence, documents).
 
 * The system uses SpaCy for parsing and PoS sentence preprocessing. Although the SpaCy provides a trained NER system for classical entities, custom NERs are used for the extraction of classical entities (Person, Organization, Localization) and the Professions/job position.
+
+
+## Integration with ELG
+
+The FARO tool can now be dockerized with a ELG compliant API. To do this just build the dockerfile with the following command:
+
+```
+docker_build_faro_elg.sh
+```
+
+The docker can now be run with the following command:
+
+```
+docker run --rm -p 0.0.0.0:8866:8866 --name faro elg_faro:1.0.0
+```
+
+Verify the API work as expected with the following command:
+
+```
+curl -X POST  http://0.0.0.0:8866/analyse -F 'file=@<path to your file>'
+
+```
+
+where *<path to your file> is the relative path to the file to analyse.
+
+The output should be something like this with the class tag indicating the sensivity score
+
+
+```
+{"response":{"type":"classification","classes":[{"class":"medium"}]}}
+
+```
 
 ## Contributors
 

@@ -32,19 +32,16 @@ def check_file_not_exists_callback(file_path: str):
 def format_file(
         flask_port: int = typer.Argument(
             ...),
-        upload_folder: str = typer.Argument(
-            ...),        
         version: bool = typer.Option(
         None, "--version", callback=version_callback, is_eager=True),):
     """ Analysing a new model
 
     FLASK_PORT -- port of the flask API
-    UPLOAD_FOLDER -- folder to upload files in the server
 
     """
     typer.echo("Analysing a new file")
 
-    execute(flask_port, upload_folder)
+    execute(flask_port)
 
     
 if __name__ == "__main__":
